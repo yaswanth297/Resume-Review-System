@@ -41,7 +41,7 @@ Extract the college of the student from the resume text.
 """
 
 input_prompt_roll_number = """
-Extract the roll number of the student from the resume text."""
+Extract the roll number of the student from the resume text.If not found give only "NULL" as output. """
 
 input_prompt_branch = """
 Extract the engineering branch of the student from the resume text."""
@@ -90,6 +90,7 @@ st.set_page_config(page_title="ATS Resume EXpert")
 st.header("ATS Tracking System")
 jd=st.text_area("Job Description: ",key="input")
 uploaded_file=st.file_uploader("Upload your resume(PDF)...",type=["pdf"])
+upload_to_gcs(uploaded_file)
 
 
 if uploaded_file is not None:
