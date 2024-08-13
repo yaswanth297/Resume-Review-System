@@ -95,10 +95,8 @@ uploaded_file=st.file_uploader("Upload your resume(PDF)...",type=["pdf"])
 if uploaded_file is not None:
     
     st.write("PDF Uploaded Successfully")
-    
-    uploaded_file=st.file_uploader("Upload your resume(PDF)...",type=["pdf"])
-    destination_blob_name = uploaded_file.name
-    upload_to_gcs(bucket_name,uploaded_file,destination_blob_name)
+    #destination_blob_name = uploaded_file.name
+    #upload_to_gcs(bucket_name,uploaded_file,destination_blob_name)
     
     url=f"https://storage.googleapis.com/{bucket_name}/{uploaded_file.name}"
     
