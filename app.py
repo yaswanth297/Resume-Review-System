@@ -13,10 +13,19 @@ from google.cloud import bigquery
 import os
 from google.cloud import storage
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/yashug/Desktop/resume-review-data-f513bc4cbe38.json"
+from google.oauth2 import service_account
+from google.cloud import storage
 
-client = bigquery.Client()
-client2 = storage.Client()
+
+gcp_service_account = st.secrets["gcp_service_account"]
+
+# Load credentials from secrets
+credentials = service_account.Credentials.from_service_account_info(gcp_service_account)
+
+
+client = bigquery.Client(credentials=credentials)
+client2 = storage.Client(credentials=credentials)
+
 dataset_id = 'resumes_data'  
 table_id = 'data'          
 bucket_name = 'resume_bucket_297'
