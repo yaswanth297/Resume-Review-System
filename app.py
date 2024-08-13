@@ -30,6 +30,13 @@ dataset_id = 'resumes_data'
 table_id = 'data'          
 bucket_name = 'resume_bucket_297'
 
+
+def upload_to_gcs(bucket_name, source_file, destination_blob_name):
+    bucket = client2.bucket(bucket_name)
+    blob = bucket.blob(destination_blob_name)
+    blob.upload_from_file(source_file)
+    return f"File uploaded to {destination_blob_name} in bucket {bucket_name}"
+
 genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
 
 input_prompt_name = """
@@ -77,20 +84,14 @@ def input_pdf_setup(uploaded_file):
     else:
         raise FileNotFoundError("No file uploaded")
     
-def upload_to_gcs(file):
-    bucket = client2.bucket(bucket_name)
-    blob = bucket.blob(file.name)
-    
-    blob.upload_from_file(file)
-
-    return f"File uploaded to {blob} in bucket {bucket_name}"
 
 
 st.set_page_config(page_title="ATS Resume EXpert")
 st.header("ATS Tracking System")
 jd=st.text_area("Job Description: ",key="input")
 uploaded_file=st.file_uploader("Upload your resume(PDF)...",type=["pdf"])
-upload_to_gcs(uploaded_file)
+destination_blob_name = uploaded_file.name
+upload_to_gcs(bucket_name,uploaded_file,destination_blob_name)
 
 
 if uploaded_file is not None:
