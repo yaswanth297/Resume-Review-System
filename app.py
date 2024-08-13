@@ -90,15 +90,20 @@ st.set_page_config(page_title="ATS Resume EXpert")
 st.header("ATS Tracking System")
 jd=st.text_area("Job Description: ",key="input")
 uploaded_file=st.file_uploader("Upload your resume(PDF)...",type=["pdf"])
-destination_blob_name = uploaded_file.name
-upload_to_gcs(bucket_name,uploaded_file,destination_blob_name)
 
 
 if uploaded_file is not None:
     
     st.write("PDF Uploaded Successfully")
+    
+    uploaded_file=st.file_uploader("Upload your resume(PDF)...",type=["pdf"])
+    destination_blob_name = uploaded_file.name
+    upload_to_gcs(bucket_name,uploaded_file,destination_blob_name)
+    
     url=f"https://storage.googleapis.com/{bucket_name}/{uploaded_file.name}"
+    
     pdf_content=input_pdf_setup(uploaded_file)
+    
     name_response = get_gemini_response(pdf_content, input_prompt_name,input_prompt_name)
     college_response = get_gemini_response(pdf_content, input_prompt_college,input_prompt_college)
     roll_number_response = get_gemini_response(pdf_content, input_prompt_roll_number,input_prompt_roll_number)
