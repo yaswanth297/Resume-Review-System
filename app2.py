@@ -46,6 +46,9 @@ Extract the roll number of the student from the resume text."""
 input_prompt_branch = """
 Extract the engineering branch of the student from the resume text."""
 
+input_prompt_cgpa= """
+Extract the cgpa/percentage of the student from the resume text."""
+
 input_prompt_interest = """
 Identify the area of interest of the student from the resume text. Possible areas include Frontend, Backend, Data Science, Data Analyst, etc.
 """
@@ -103,6 +106,12 @@ if uploaded_file is not None:
     branch_response = get_gemini_response(pdf_content, input_prompt_branch,input_prompt_branch)
     interest_response = get_gemini_response(pdf_content, input_prompt_interest,input_prompt_interest)
     rating_response = get_gemini_response(pdf_content, input_prompt_rating,input_prompt_rating)
+    cgpa_response = get_gemini_response(pdf_content, input_prompt_cgpa,input_prompt_cgpa)
+    
+    if(len(roll_number_response)>15):
+        roll_number_response="NULL"
+    if(len(cgpa_response)>15):
+        cgpa_response="NULL"
 
     st.write(f"Name: {name_response.strip()}")
     st.write(f"College: {college_response.strip()}")
@@ -118,6 +127,7 @@ if uploaded_file is not None:
             "College": college_response.strip(),
             "Roll_Number": roll_number_response.strip(),
             "Branch": branch_response.strip(),
+            "CGPA":cgpa_response.strip(),
             "Field_of_Interest": interest_response.strip(),
             "Rating": rating_response.strip(),
             "Resume_Link": url
