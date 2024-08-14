@@ -124,7 +124,7 @@ if uploaded_file is not None:
 
     rows_to_insert = [
         {
-            "Name": name_response.strip(),
+            "Name ": name_response.strip(),
             "College": college_response.strip(),
             "Roll_Number": roll_number_response.strip(),
             "Branch": branch_response.strip(),
