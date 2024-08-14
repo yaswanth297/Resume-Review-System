@@ -3,4 +3,6 @@ google-generativeai
 python-dotenv
 pdf2image
 pyPDF2
+google-cloud-bigquery
+google-cloud-storage
 
