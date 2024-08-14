@@ -47,10 +47,10 @@ input_prompt_branch = """
 Extract the engineering branch of the student from the resume text."""
 
 input_prompt_cgpa= """
-Extract the cgpa/percentage of the student from the resume text."""
+Extract the CGPA or percentage of the student mentioned in the resume text. Just give the number as output."""
 
 input_prompt_interest = """
-Identify the area of interest of the student from the resume text. Possible areas include Frontend, Backend, Data Science, Data Analyst, etc.
+Identify the area of interest of the student from the resume text based on the projects mentioned or experiences . Possible areas include Frontend, Backend, Data Science, Data Analyst, or core branches roles like process engineeringetc.
 """
 input_prompt_rating = """
 Evaluate the resume based on the following criteria:
@@ -135,14 +135,11 @@ if uploaded_file is not None:
         }
     ]
 
-    try:
-        errors = client.insert_rows_json(table_ref, rows_to_insert)
-        if errors:
-            st.write("Encountered errors while inserting rows: {}".format(errors))
-        else:
-            st.write("Rows have been successfully appended.")
-    except Exception as e:
-        st.write(f"An error occurred: {e}")
+    errors = client.insert_rows_json(table_ref, rows_to_insert)
+    if errors:
+        st.write("Encountered errors while inserting rows: {}".format(errors))
+    else:
+        st.write("Rows have been successfully appended.")
 
 
 
