@@ -119,6 +119,7 @@ if uploaded_file is not None:
     st.write(f"Branch: {branch_response.strip()}")
     st.write(f"Area of Interest: {interest_response.strip()}")
     st.write(f"Rating: {rating_response.strip()}")
+    st.write(f"CGPA: {cgpa_response.strip()}")
     table_ref = client.dataset(dataset_id).table(table_id)
 
     rows_to_insert = [
@@ -137,11 +138,11 @@ if uploaded_file is not None:
     try:
         errors = client.insert_rows_json(table_ref, rows_to_insert)
         if errors:
-            print("Encountered errors while inserting rows: {}".format(errors))
+            st.write("Encountered errors while inserting rows: {}".format(errors))
         else:
-            print("Rows have been successfully appended.")
+            st.write("Rows have been successfully appended.")
     except Exception as e:
-        print(f"An error occurred: {e}")
+        st.write(f"An error occurred: {e}")
 
 
 
